@@ -18,8 +18,8 @@ add_btn.addEventListener('click', () => {
 const create_item = () => {
   const item = document.createElement("div")
   item.classList.add("item")
-  item.setAttribute("id", `item-${order}`)
-  item.setAttribute("draggable", true)
+  item.id = "item-" + order
+  item.draggable=  true
 
   item.addEventListener("dragstart", (e)=>{
     return e.dataTransfer.setData("text", e.target.id)
@@ -28,12 +28,12 @@ const create_item = () => {
     return e.dataTransfer.clearData()
   })
   const input = document.createElement("input")
-  item.append(input)
+  item.appendChild(input)
   const save_btn = document.createElement("button")
   save_btn.innerHTML = "Save"
   save_btn.addEventListener("click", () => {
     error.innerHTML = ""
-    if(input.value){
+    if(input.value != ""){
       order += 1
       item.innerHTML = input.value
       adding = false;
@@ -42,7 +42,9 @@ const create_item = () => {
     }
 
   })
-  item.append(save_btn)
+
+  item.appendChild(save_btn)
+
   return item
 
 };
@@ -51,8 +53,7 @@ document.querySelectorAll('.drop').forEach(element => {
   element.addEventListener("drop", e => {
     e.preventDefault()
     const id = e.dataTransfer.getData("text")
-    const el = document.getElementById(id)
-    e.target.append(el)
+    e.target.appendChild( document.getElementById(id))
   })
   element.addEventListener("dragover", e => {
     e.preventDefault()
